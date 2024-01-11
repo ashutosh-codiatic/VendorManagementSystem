@@ -1,27 +1,25 @@
-from rest_framework.response import Response
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
-from accounts.auth.utils import get_tokens_for_user
 from django.contrib.auth import authenticate
 from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
-from accounts.auth.serializers import (
-    VendorRegistrationSerializer,
-    VendorLoginSerializer,
-)
-from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
-from accounts.models import Vendor
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
 from accounts.auth.permissions import CustomVendorPermission
+from accounts.auth.serializers import (
+    VendorLoginSerializer,
+    VendorRegistrationSerializer,
+)
+from accounts.models import Vendor
 
 
 class VendorRegistrationViewSet(ModelViewSet):
     # permission_classes = [IsAuthenticated]
     permission_classes = [CustomVendorPermission]
-    authentication_classes = [JWTAuthentication]
+    # authentication_classes = [JWTAuthentication]
     queryset = Vendor.objects.all()
     serializer_class = VendorRegistrationSerializer
 

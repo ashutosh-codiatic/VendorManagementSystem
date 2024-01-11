@@ -1,10 +1,8 @@
 # from django.conf import settings
+import uuid
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-import uuid
-
 from accounts.models import Vendor
-
 
 # @receiver(post_save, sender=Vendor)
 # def create_freelancer(sender, instance, created, **kwargs):

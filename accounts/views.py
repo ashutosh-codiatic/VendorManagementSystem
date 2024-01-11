@@ -1,9 +1,19 @@
-# # vendors/views.py
-# from rest_framework import generics
-# from rest_framework.response import Response
-# from .models import Vendor
-# from purchase_orders.models import HistoricalPerformance
-# from .serializers import VendorSerializer
+# vendors/views.py
+from rest_framework import generics
+from rest_framework.response import Response
+from accounts.models import Vendor
+from accounts.serializers import (
+    VendorSerializer,
+    VendorPerformanceSerializer,
+    HistoricalPerformanceSerializer,
+)
+from performance_metrics.models import HistoricalPerformance
+from rest_framework.permissions import IsAuthenticated
+
+
+#############################################
+# create ModelViewSet with action decorator #
+#############################################
 
 
 # class VendorPerformanceView(generics.RetrieveAPIView):
@@ -13,7 +23,6 @@
 #     def retrieve(self, request, *args, **kwargs):
 #         instance = self.get_object()
 
-#         # Retrieve latest HistoricalPerformance record for the vendor
 #         latest_performance = (
 #             HistoricalPerformance.objects.filter(vendor=instance)
 #             .order_by("-date")
@@ -21,7 +30,6 @@
 #         )
 
 #         if latest_performance:
-#             # Return the performance metrics along with the vendor details
 #             data = {
 #                 "vendor": VendorSerializer(instance).data,
 #                 "performance_metrics": {
@@ -37,3 +45,27 @@
 #                 {"error": "No historical performance data available for this vendor."},
 #                 status=404,
 #             )
+
+
+# class VendorListView(generics.ListCreateAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = Vendor.objects.all()
+#     serializer_class = VendorSerializer
+
+
+# class VendorActionView(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = Vendor.objects.all()
+#     serializer_class = VendorSerializer
+
+
+class VendorPerformanceView(generics.RetrieveAPIView):
+    # permission_classes = (IsAuthenticated,)
+    queryset = Vendor.objects.all()
+    serializer_class = VendorPerformanceSerializer
+
+
+class VendorPerformanceHistoryView(generics.ListAPIView):
+    # permission_classes = (IsAuthenticated,)
+    queryset = HistoricalPerformance.objects.all()
+    serializer_class = HistoricalPerformanceSerializer
