@@ -30,8 +30,9 @@ def calc_perfomance_matrix(sender, instance, **kwargs):
 
 
 @receiver(signal=purchase_order_acknowledged)
-def calc_avg_response_time(sender, instance, **kwargs):
+def calculate_avg_response_time(sender, instance, **kwargs):
     vendor = instance.vendor
     vendor.avg_response_time = vendor.calc_avg_response_time()
     vendor.save()
+
     return vendor

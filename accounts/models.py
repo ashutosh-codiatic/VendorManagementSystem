@@ -41,7 +41,7 @@ class Vendor(AbstractUser):
         return self.email
 
     def calc_on_time_delivery_rate(self):
-        po_list = self.get_purchase_orders_by_status(status="completed")
+        po_list = self.purchaseorder_set.filter(status="completed")
         filter_on_time_deliverables = po_list.filter(
             acknowledgment_date__lte=models.F("delivery_date")
         )
@@ -51,17 +51,18 @@ class Vendor(AbstractUser):
             return 0
 
     def calc_avg_quality_ratings(self):
-        po_list = self.get_purchase_orders_by_status(status="completed")
+        po_list = self.purchaseorder_set.filter(status="completed")
         result = po_list.aggregate(
             avg_quality_rating=models.Avg("quality_rating", default=0.0)
         )
+
         return round(result.get("avg_quality_rating"))
 
     def calc_fulfillment_rate(self):
-        po_list_status_completed = self.get_purchase_orders_by_status(
-            status="completed"
-        )
-        po_list = self.get_purchase_orders_by_status(status=None)
+        po_list_status_completed = self.purchaseorder_set.filter(status="completed")
+
+        po_list = self.purchaseorder_set.filter(status="pending")
+
         try:
             return round(po_list_status_completed.count() / po_list.count(), 2)
         except ZeroDivisionError:
@@ -78,5 +79,7 @@ class Vendor(AbstractUser):
                     models.F("acknowledgment_date") - models.F("issue_date")
                 )
             )
+        try:
             return round(result.get("avg_response_time").total_seconds(), 2)
-        return 0
+        except ZeroDivisionError:
+            return 0

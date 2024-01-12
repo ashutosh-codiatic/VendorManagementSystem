@@ -21,20 +21,12 @@ class PurchaseOrderViewSet(viewsets.ModelViewSet):
 
 
 class PurchaseOrderAcknowledgeView(generics.UpdateAPIView):
-    # permission_classes = (IsAuthenticated,)
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderAcknowledgeSerializer
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data)
-        serializer.is_valid()
-        self.perform_update(serializer=serializer)
-        return Response(
-            {
-                "status": "success",
-                "message": "Purchase order has been successfully acknowledged.",
-                "code": "success_acknowledgement",
-            },
-            status=status.HTTP_200_OK,
-        )
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_200_OK)
