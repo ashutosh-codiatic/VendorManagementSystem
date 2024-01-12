@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
         ('performance_metrics', '0001_initial'),
     ]
 
+
     operations = [
         migrations.AlterField(
             model_name='historicalperformance',

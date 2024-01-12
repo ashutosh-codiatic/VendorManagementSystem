@@ -79,6 +79,8 @@ class VendorRegistrationSerializer(serializers.ModelSerializer):
         return vendor
 
 
+
+
 class VendorLoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)

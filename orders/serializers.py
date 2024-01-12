@@ -8,24 +8,7 @@ class PurchaseOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = PurchaseOrder
         fields = "__all__"
-        extra_kwargs = {
-            "po_number": {
-                "error_messages": {
-                    "required": _("please provide number of purchase order")
-                }
-            },
-            "order_date": {
-                "error_messages": {"required": _("please provide order date")}
-            },
-            "delivery_date": {
-                "error_messages": {"required": _("please provide delivery date")}
-            },
-            "quantity": {
-                "error_messages": {"required": _("please provide total item quantity")}
-            },
-            "quality_ratings": {"max_value": 10.00, "min_value": 0.0},
-            "vendor": {"error_messages": {"required": _("please provide vendor Id")}},
-        }
+        
 
     def validate(self, attrs):
         return super().validate(attrs)

@@ -38,7 +38,7 @@ class Vendor(AbstractUser):
         Returns:
         - str: The username of the user.
         """
-        return self.email
+        return self.email   
 
     def calc_on_time_delivery_rate(self):
         po_list = self.purchaseorder_set.filter(status="completed")

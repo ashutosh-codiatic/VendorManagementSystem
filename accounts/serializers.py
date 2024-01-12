@@ -12,19 +12,7 @@ class VendorSerializer(serializers.ModelSerializer):
             "id",
             "vendor_code",
         ]
-        extra_kwargs = {
-            "name": {
-                "error_messages": {"required": _("please provide name of vendor")}
-            },
-            "contact_details": {
-                "error_messages": {
-                    "required": _("please provide vendor contact details")
-                }
-            },
-            "address": {
-                "error_messages": {"required": _("please provide vendor address")}
-            },
-        }
+        
 
 
 class VendorPerformanceSerializer(serializers.ModelSerializer):
