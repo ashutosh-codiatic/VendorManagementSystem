@@ -8,6 +8,11 @@ from accounts.serializers import VendorSerializer
 
 
 class VendorRegistrationSerializer(serializers.ModelSerializer):
+    """Serializer class for Vendor registration
+
+    Args:
+        serializers (class): ModelSerializer
+    """
     # password = serializers.CharField(write_only=True)
     password = serializers.CharField(
         max_length=128,
@@ -82,6 +87,11 @@ class VendorRegistrationSerializer(serializers.ModelSerializer):
 
 
 class VendorLoginSerializer(TokenObtainPairSerializer):
+    """Serializer class for Vendor Login
+
+    Args:
+        TokenObtainPairSerializer (class): Token 
+    """
     def validate(self, attrs):
         data = super().validate(attrs)
         refresh = self.get_token(self.user)

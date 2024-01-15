@@ -5,6 +5,11 @@ from django.utils.translation import gettext as _
 
 
 class VendorSerializer(serializers.ModelSerializer):
+    """Vendor Serializer class 
+
+    Args:
+        serializers (_type_): _description_
+    """
     class Meta:
         model = Vendor
         fields = "__all__"
@@ -16,6 +21,11 @@ class VendorSerializer(serializers.ModelSerializer):
 
 
 class VendorPerformanceSerializer(serializers.ModelSerializer):
+    """Vendor Serializer class for Performance matrics
+
+    Args:
+        serializers (_type_): _description_
+    """
     class Meta:
         model = Vendor
         fields = [
@@ -27,6 +37,11 @@ class VendorPerformanceSerializer(serializers.ModelSerializer):
 
 
 class HistoricalPerformanceSerializer(serializers.ModelSerializer):
+    """History Performance Serializer class for trackig History
+
+    Args:
+        serializers (_type_): _description_
+    """
     class Meta:
         model = HistoricalPerformance
         fields = "__all__"

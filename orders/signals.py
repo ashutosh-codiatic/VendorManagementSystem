@@ -17,7 +17,6 @@ def calculate_perfomance_matrix(sender, instance, **kwargs):
     vendor.quality_rating_avg = quality_rating_avg
     vendor.fulfillment_rate = fulfillment_rate
     vendor.save()
-    vendor.refresh_from_db()
 
     performance_history_model.objects.create(
         vendor=vendor,

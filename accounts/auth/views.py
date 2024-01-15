@@ -17,6 +17,11 @@ from accounts.models import Vendor
 
 
 class VendorRegistrationViewSet(ModelViewSet):
+    """ViewSet for Vendor CRUD 
+
+    Args:
+        ModelViewSet (class): _description_
+    """
     # permission_classes = [IsAuthenticated]
     permission_classes = [CustomVendorPermission]
     # authentication_classes = [JWTAuthentication]
@@ -63,6 +68,17 @@ class VendorRegistrationViewSet(ModelViewSet):
 
 
 class VendorLoginViewSet(ModelViewSet):
+    """ViewSet for Vendor Login
+
+    Args:
+        ModelViewSet (class): _description_
+
+    Raises:
+        InvalidToken: _description_
+
+    Returns:
+        _type_: _description_
+    """
     serializer_class = VendorLoginSerializer
     permission_classes = (AllowAny,)
     http_method_names = ["post"]
