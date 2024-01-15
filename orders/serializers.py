@@ -14,6 +14,7 @@ class PurchaseOrderSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
 
     def update(self, instance, validated_data):
+        breakpoint()
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()

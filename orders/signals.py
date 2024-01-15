@@ -7,11 +7,11 @@ purchase_order_acknowledged = Signal()
 
 
 @receiver(signal=purchase_order_status_completed)
-def calc_perfomance_matrix(sender, instance, **kwargs):
+def calculate_perfomance_matrix(sender, instance, **kwargs):
     vendor = instance.vendor
-    on_time_delivery_rate = vendor.calc_on_time_delivery_rate()
-    quality_rating_avg = vendor.calc_avg_quality_ratings()
-    fulfillment_rate = vendor.calc_fulfillment_rate()
+    on_time_delivery_rate = vendor.calculate_on_time_delivery_rate()
+    quality_rating_avg = vendor.calculate_avg_quality_ratings()
+    fulfillment_rate = vendor.calculate_fulfillment_rate()
 
     vendor.on_time_delivery_rate = on_time_delivery_rate
     vendor.quality_rating_avg = quality_rating_avg
@@ -32,7 +32,7 @@ def calc_perfomance_matrix(sender, instance, **kwargs):
 @receiver(signal=purchase_order_acknowledged)
 def calculate_avg_response_time(sender, instance, **kwargs):
     vendor = instance.vendor
-    vendor.avg_response_time = vendor.calc_avg_response_time()
+    vendor.avg_response_time = vendor.calculate_avg_response_time()
     vendor.save()
 
     return vendor
